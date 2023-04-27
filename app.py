@@ -7,12 +7,9 @@ from datetime import datetime
 
 st.set_page_config(layout="wide")
 
-st.write("Book Rating Prediction Using Streamlit by Joohyeong")
-
-
 def main():
-    st.title("Book Rating Prediction")
-    
+    st.markdown("<h1 style='text-align: center; color: black;'>Book Rating Prediction</h1>", unsafe_allow_html=True)
+    st.markdown("<h4 style='text-align: center; color: grey;'>Using Streamlit by Joohyeong</h4>", unsafe_allow_html=True)
     
     ### file upload  (test_ratings.csv)
     uploaded_file = st.file_uploader("Choose a CSV", type=['csv'])
@@ -34,9 +31,8 @@ def main():
             st.session_state['preview'] += (example[i] + '\n')
         st.text_area("CSV Preview (5 Lines)", "", height=150, key="preview")
         
-        
         # button click -> prediction start
-        if st.button('Prediction Start'):
+        if st.button('Start to prediction'):
             st.write('Predicting Book Rating ...')
             predicts = get_prediction(model, data)
             
