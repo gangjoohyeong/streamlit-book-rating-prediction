@@ -1,6 +1,10 @@
 # streamlit-fm-model
 Book Rating Prediction Using Streamlit
 
+## deps
+streamlit==1.21.0
+...
+
 ## Execute
 ```bash
 streamlit run app.py
