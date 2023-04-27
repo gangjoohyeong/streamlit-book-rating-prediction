@@ -2,8 +2,6 @@ import numpy as np
 import torch
 import torch.nn as nn
 
-
-# factorization을 통해 얻은 feature를 embedding 합니다.
 class FeaturesEmbedding(nn.Module):
     def __init__(self, field_dims: np.ndarray, embed_dim: int=16):
         super().__init__()
@@ -16,8 +14,6 @@ class FeaturesEmbedding(nn.Module):
         x = x + x.new_tensor(self.offsets).unsqueeze(0)
         return self.embedding(x)
 
-
-# FM모델 등에서 활용되는 선형 결합 부분을 정의합니다.
 class FeaturesLinear(nn.Module):
     def __init__(self, field_dims: np.ndarray, output_dim: int=1):
         super().__init__()
@@ -30,8 +26,6 @@ class FeaturesLinear(nn.Module):
         x = x + x.new_tensor(self.offsets).unsqueeze(0)
         return torch.sum(self.fc(x), dim=1) + self.bias
 
-
-# feature 사이의 상호작용을 효율적으로 계산합니다.
 class FactorizationMachine(nn.Module):
     def __init__(self, reduce_sum:bool=True):
         super().__init__()
@@ -46,7 +40,7 @@ class FactorizationMachine(nn.Module):
             ix = torch.sum(ix, dim=1, keepdim=True)
         return 0.5 * ix
 
-# FM 모델을 구현합니다.
+# FM Model
 class FactorizationMachineModel(nn.Module):
     def __init__(self, data):
         super().__init__()
