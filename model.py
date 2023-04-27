@@ -59,4 +59,4 @@ class FactorizationMachineModel(nn.Module):
     def forward(self, x: torch.Tensor):
         x = self.linear(x) + self.fm(self.embedding(x))
         # return torch.sigmoid(x.squeeze(1))
-        return x.squeeze(1)
+        return x.squeeze(1) # regression task

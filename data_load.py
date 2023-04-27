@@ -1,9 +1,7 @@
 import numpy as np
 import pandas as pd
-from sklearn.model_selection import train_test_split
 import torch
 import torch.nn as nn
-from torch.utils.data import TensorDataset, DataLoader, Dataset
 
 def age_map(x: int) -> int:
     x = int(x)
@@ -45,8 +43,8 @@ def process_context_data(users, books, ratings1, ratings2):
     # 인덱싱 처리된 데이터 조인
     context_df = ratings.merge(users, on='user_id', how='left')\
                     .merge(books[['isbn', 'category', 'publisher', 'language', 'book_author']], on='isbn', how='left')
-    train_df = ratings1.merge(users, on='user_id', how='left')\
-                    .merge(books[['isbn', 'category', 'publisher', 'language', 'book_author']], on='isbn', how='left')
+    # train_df = ratings1.merge(users, on='user_id', how='left')\
+    #                 .merge(books[['isbn', 'category', 'publisher', 'language', 'book_author']], on='isbn', how='left')
     test_df = ratings2.merge(users, on='user_id', how='left')\
                     .merge(books[['isbn', 'category', 'publisher', 'language', 'book_author']], on='isbn', how='left')
 
@@ -55,16 +53,16 @@ def process_context_data(users, books, ratings1, ratings2):
     loc_state2idx = {v:k for k,v in enumerate(context_df['location_state'].unique())}
     loc_country2idx = {v:k for k,v in enumerate(context_df['location_country'].unique())}
 
-    train_df['location_city'] = train_df['location_city'].map(loc_city2idx)
-    train_df['location_state'] = train_df['location_state'].map(loc_state2idx)
-    train_df['location_country'] = train_df['location_country'].map(loc_country2idx)
+    # train_df['location_city'] = train_df['location_city'].map(loc_city2idx)
+    # train_df['location_state'] = train_df['location_state'].map(loc_state2idx)
+    # train_df['location_country'] = train_df['location_country'].map(loc_country2idx)
     test_df['location_city'] = test_df['location_city'].map(loc_city2idx)
     test_df['location_state'] = test_df['location_state'].map(loc_state2idx)
     test_df['location_country'] = test_df['location_country'].map(loc_country2idx)
 
     # 나이 중앙값
-    train_df['age'] = train_df['age'].fillna(int(train_df['age'].median()))
-    train_df['age'] = train_df['age'].apply(age_map)
+    # train_df['age'] = train_df['age'].fillna(int(train_df['age'].median()))
+    # train_df['age'] = train_df['age'].apply(age_map)
     test_df['age'] = test_df['age'].fillna(int(test_df['age'].median()))
     test_df['age'] = test_df['age'].apply(age_map)
 
@@ -74,10 +72,10 @@ def process_context_data(users, books, ratings1, ratings2):
     language2idx = {v:k for k,v in enumerate(context_df['language'].unique())}
     author2idx = {v:k for k,v in enumerate(context_df['book_author'].unique())}
 
-    train_df['category'] = train_df['category'].map(category2idx)
-    train_df['publisher'] = train_df['publisher'].map(publisher2idx)
-    train_df['language'] = train_df['language'].map(language2idx)
-    train_df['book_author'] = train_df['book_author'].map(author2idx)
+    # train_df['category'] = train_df['category'].map(category2idx)
+    # train_df['publisher'] = train_df['publisher'].map(publisher2idx)
+    # train_df['language'] = train_df['language'].map(language2idx)
+    # train_df['book_author'] = train_df['book_author'].map(author2idx)
     test_df['category'] = test_df['category'].map(category2idx)
     test_df['publisher'] = test_df['publisher'].map(publisher2idx)
     test_df['language'] = test_df['language'].map(language2idx)
@@ -94,7 +92,8 @@ def process_context_data(users, books, ratings1, ratings2):
         "author2idx":author2idx,
     }
 
-    return idx, train_df, test_df
+    # return idx, train_df, test_df
+    return idx, test_df
 
 
 def context_data_load(test_ratings: pd.DataFrame):
@@ -124,7 +123,8 @@ def context_data_load(test_ratings: pd.DataFrame):
     test['isbn'] = test['isbn'].map(isbn2idx)
     books['isbn'] = books['isbn'].map(isbn2idx)
 
-    idx, context_train, context_test = process_context_data(users, books, train, test)
+    # idx, context_train, context_test = process_context_data(users, books, train, test)
+    idx, context_test = process_context_data(users, books, train, test)
     
     # user, isbn, age_bin, city, state, country, category, publisher, language, author
     field_dims = np.array([len(user2idx), len(isbn2idx),
@@ -133,7 +133,7 @@ def context_data_load(test_ratings: pd.DataFrame):
                           dtype=np.uint32)
 
     data = {
-            'train':context_train,
+            # 'train':context_train,
             'test':context_test.drop(['rating'], axis=1),
             'field_dims':field_dims,
             'users':users,

@@ -10,21 +10,15 @@ def load_model(test_ratings:pd.DataFrame) -> FactorizationMachineModel:
     data = context_data_load(test_ratings)
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     model = FactorizationMachineModel(data).to(device)
-    model.load_state_dict(torch.load('./book_rating/FM_model.pt', map_location=device))
+    model.load_state_dict(torch.load('./model_file/FM_model.pt', map_location=device))
 
     return data, model
-
-# def get_prediction(model:FactorizationMachineModel, data):
-#     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    
-    
     
 def get_prediction(model:FactorizationMachineModel, data):
     batch_size = 1024
     predicts = list()
-    # model.eval()
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     test_dataset = TensorDataset(torch.LongTensor(data['test'].values))
     test_dataloader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
     

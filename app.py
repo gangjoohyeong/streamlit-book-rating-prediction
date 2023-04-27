@@ -7,8 +7,6 @@ from datetime import datetime
 
 st.set_page_config(layout="wide")
 
-root_pw = '4948'
-
 st.write("Book Rating Prediction Using Streamlit by Joohyeong")
 
 
@@ -18,7 +16,7 @@ def main():
     
     ### file upload  (test_ratings.csv)
     uploaded_file = st.file_uploader("Choose a CSV", type=['csv'])
-    uploaded_file
+    
     
     if uploaded_file:
         ### uploaded_file -> read_csv
@@ -53,9 +51,9 @@ def main():
                 return df.to_csv().encode('utf-8')
             
             st.download_button(
-            "Result Download",
+            "Download Results",
             convert_df(result),
-            f"prediction_ratings_{datetime.now()}",
+            f"prediction_ratings_{datetime.now()}.csv",
             "text/csv",
             key='download-csv'
             )
