@@ -1,7 +1,7 @@
 # streamlit-fm-model
 Book Rating Prediction Using Streamlit
 
-## deps
+## Deps
 
 ```
 streamlit==1.21.0
