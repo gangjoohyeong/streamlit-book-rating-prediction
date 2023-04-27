@@ -21,6 +21,6 @@ streamlit run app.py
 <br>
 <br>
 
-### Download Results
+### Download results
 ![2](https://user-images.githubusercontent.com/93419379/234737893-741c2950-69bf-44f0-9c2e-0c1139a85a3e.gif)
 
