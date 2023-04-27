@@ -1,6 +1,4 @@
 import streamlit as st
-# import yaml
-# import io
 from predict import load_model, get_prediction
 import pandas as pd
 from datetime import datetime
