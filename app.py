@@ -32,7 +32,7 @@ def main():
         st.text_area("CSV Preview (5 Lines)", "", height=150, key="preview")
         
         # button click -> prediction start
-        if st.button('Start to prediction'):
+        if st.button('Start prediction'):
             st.write('Predicting Book Rating ...')
             predicts = get_prediction(model, data)
             
