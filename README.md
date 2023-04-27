@@ -2,8 +2,11 @@
 Book Rating Prediction Using Streamlit
 
 ## deps
-streamlit==1.21.0
+
+```
+streamlit==1.21.0  
 ...
+```
 
 ## Execute
 ```bash
