@@ -14,7 +14,7 @@ streamlit run app.py
 <br>
 <br>
 
-### Start to prediction
+### Start prediction
 ![3](https://user-images.githubusercontent.com/93419379/234738767-83e7defc-4a58-4e7f-b7eb-1f6fe1484a7f.gif)
 
 
