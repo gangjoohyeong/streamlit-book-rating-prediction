@@ -1,4 +1,5 @@
-# streamlit-fm-model
+# streamlit-book-rating-prediction
+
 Book Rating Prediction Using Streamlit
 
 ## Deps
